@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <context:component-scan base-package="wz.web.controller"
+                            use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <mvc:annotation-driven>
+
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--<mvc:view-controller path="/" view-name="/views/article/" />-->
+
+    <!-- 配置结果页面 前缀和后缀 -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="order" value="10" />-->
+        <!--<property name="prefix" value="/" />-->
+        <!--<property name="suffix" value=".jsp" />-->
+    <!--</bean>-->
+    <!--自定义了一个可模糊匹配jsp页面的resolver-->
+    <bean class="wz.web.base.AntPathMatchingViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/**/**/*" />
+        <property name="suffix" value=".jsp" />
+        <property name="contentType" value="text/html;charset=utf-8" />
+    </bean>
+
+    <mvc:default-servlet-handler/>
+    <!--允许跨域访问设置-->
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
+</beans>
