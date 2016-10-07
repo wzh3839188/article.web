@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: Spring MVC Application
-Implementation-Version: 1.0.0
-Built-By: zhuowang
-Implementation-Vendor-Id: wz
-Created-By: IntelliJ IDEA
-Build-Jdk: 1.8.0_92
-Main-Class: ${start-class}
-
